@@ -1,0 +1,5 @@
+Area for building CC: 8850 square feet.
+Area for building DH: 41693 square feet.
+Area for building SCI: 21248 square feet.
+Area for building LIB: 32000 square feet.
+Total area: 103791 square feet.

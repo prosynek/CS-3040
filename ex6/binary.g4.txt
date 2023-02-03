@@ -1,0 +1,30 @@
+grammar binary;
+
+number
+   : bits EOF
+        {print("As a decimal value: " + str($bits.value))}
+   ;
+
+bits returns [int value]
+   : bit
+        {$value = $bit.bit_value}
+   | high=bits bit
+        /* We'd like to use $bits.value to get the value of the high
+         * order bits. However, due to an apparent bug in ANTLR, $bits.value
+         * results in errors. Giving the bits non-terminal an alias (high)
+         * fixes this, so the following code is equivalent to
+         *      $value = $bits.value * 2 + $bit.bit_value
+         */
+        {$value = $high.value * 2 + $bit.bit_value}
+   ;
+
+bit returns [int bit_value]
+   : '0'
+        {$bit_value = 0}
+   | '1'
+        {$bit_value = 1}
+   ;
+
+WS
+   : [ \r\n\t]+ -> channel (HIDDEN)
+   ;

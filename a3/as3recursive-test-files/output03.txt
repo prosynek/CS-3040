@@ -1,0 +1,4 @@
+Area for building MLH: 5812 square feet.
+Area for building ATTACHED: 15000 square feet.
+Area for building WORKSPACE: 5184 square feet.
+Total area: 25996 square feet.

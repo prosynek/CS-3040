@@ -1,0 +1,15 @@
+ack :: Integer -> Integer -> Integer
+ack 0 n = n + 1
+ack m 0 = ack (m - 1) 1
+ack m n = ack (m - 1) (ack m (n - 1))
+
+first_two :: [a] -> [a]
+first_two n = [head n] ++ [head (tail n)]
+
+first_even :: [Integer] -> Integer
+first_even x = if even (head x) then head x else first_even (tail x)
+
+swapPairs :: [a] -> [a]
+swapPairs [] = []
+swapPairs [x] = [x]
+swapPairs (x:y:rest) = y:x:(swapPairs rest)

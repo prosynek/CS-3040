@@ -1,0 +1,14 @@
+floor BASEMENT has rooms [ 10 by 15 , 30 by 10 , 80 by 30 ]
+floor ENTRY has room [ 18 by 33 ]
+HALL room [500 by 500]
+floor RESIDENCE has rooms [ 10 by 15 , 30 by 10 , 80 by 30 ]
+floor OFFICE has rooms [ 10 by 15 , 30 by 10 , 80 by 30 ]
+floor GYMNASIUM has rooms [ 200 by 100 , 20 by 30 ]
+floor CLASSES has rooms [ 20 by 10 , 20 by 10 , 20 by 10 , 20 by 10 ]
+complex
+    building HOUSE with floors {
+        BASEMENT , RESIDENCE , OFFICE
+    }
+    building SCHOOL with floors {
+        BASEMENT , OFFICE , GYMNASIUM , CLASSES , CLASSES
+    }

@@ -1,0 +1,23 @@
+floor QUARTERBASEMENT has rooms [15 by 15, 20 by 20, 20 by 20, 25 by 25, 30 by 30, 10 by 30, 10 by 10]
+floor GARAGE has rooms [20 by 20, 30 by 30, 100 by 200]
+floor DHFIRST has rooms [50 by 50, 80 by 60, 40 by 40, 40 by 40, 35 by 35]
+floor DHMIDDLE has rooms [20 by 40, 80 by 40, 35 by 35, 60 by 40, 10 by 40,
+			  35 by 40, 25 by 40, 30 by 30, 25 by 50
+                         ]
+floor DHFOURTH has rooms [8 by 12, 8 by 12, 8 by 12, 8 by 12,
+                          8    by    12, 8 by 12, 8 by 12, 8 by 12, 35
+                          by 40, 20 by 40, 20 by 30, 25 by 25, 25 by 25]
+floor SCIONE has rooms [10 by 10, 11 by 11, 12 by 12, 13 by 13, 14 by 14,
+                        15 by 15, 16 by 16, 17 by 17, 18 by 18, 25 by 25,
+                        40 by 40, 40 by 40]
+floor SCITHREE has rooms [15 by 15, 15 by 15, 15 by 15, 30 by 30, 40 by 40]
+floor STORAGE  has room [60 by 60]
+floor LIBONE has rooms [160 by 60, 40 by 40, 20 by 20]
+floor LIBTWO has rooms [200 by 60, 50 by 40, 20 by 20]
+floor LIBTHREE has rooms [40 by 30, 40 by 30, 40 by 30, 40 by 30, 40 by 30]
+complex
+  building CC with floors { QUARTERBASEMENT, QUARTERBASEMENT, QUARTERBASEMENT }
+  building DH with floors {DHFIRST, DHMIDDLE, DHMIDDLE, DHFOURTH}
+  building SCI with floor {SCIONE, SCIONE, SCITHREE,     
+                           SCITHREE, STORAGE}
+  building LIB with floors {LIBONE, LIBTWO, LIBTHREE}

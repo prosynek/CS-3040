@@ -1,0 +1,3 @@
+Area for building HOUSE: 8550 square feet.
+Area for building SCHOOL: 27900 square feet.
+Total area: 36450 square feet.

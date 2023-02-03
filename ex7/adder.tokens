@@ -1,0 +1,7 @@
+ADD=1
+AVE=2
+COMMA=3
+INTEGER=4
+FLOAT=5
+WS=6
+','=3

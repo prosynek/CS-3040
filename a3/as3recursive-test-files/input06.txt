@@ -1,0 +1,13 @@
+floor LOBBY has rooms [ 10 by 10 , 10 by 10 , 20 by 30 ]
+floor RESIDENCE has rooms [ 12 by 12 , 6 by 6 , 6 by 6 , 6 by 6 , 6 by 6 , 6 by 6 , 6 by 6 ]
+floor CLASSES has rooms [ 8 by 8 , 8 by 8 , 8 by 8 , 8 by 8 , 8 by 8 , 8 by 8 , 8 by 8 , 8 by 8 ]
+floor CLASSES has room [ 5 by 5 ]
+floor FLOORWITHOUTASBESTOS has rooms [ 20 by 10 , 20 by 10 , 20 by 10 , 20 by 10 ]
+complex
+    building MLH with floors {
+        LOBBY , RESIDENCE , RESIDENCE , RESIDENCE , RESIDENCE ,
+        RESIDENCE , RESIDENCE , RESIDENCE , RESIDENCE , RESIDENCE ,
+        RESIDENCE , RESIDENCE , QUARANTINE , FLOORWITHOUTASBESTOS
+    }
+    building ATTACHED with floors { LOBBY , LOBBY }
+    building WORKSPACE with floors { CLASSES , CLASSES , CLASSES , CLASSES , CLASSES , CLASSES , CLASSES , LOBBY , LOBBY }

@@ -1,0 +1,171 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  <title>CS 3040, Assignment 3: Recursive Descent Parser</title>
+  <link rel="stylesheet" href="assignment_specs_files/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+</head>
+
+<body>
+<div class="container-fluid">
+<p></p><h2 align="center"><a href="https://faculty-web.msoe.edu/hasker/cs3040/">CS
+      3040</a>, <a href="https://faculty-web.msoe.edu/hasker/cs3040/as/">Assignment</a> 3: Recursive Descent Parser
+   </h2>
+<!--
+<h3 align=center>Draft!</h3>
+<!---->
+<p></p>
+
+<!--
+
+
+-->
+
+<p>
+A group of architects have devised a domain-specific language for
+describing buildings with multiple floors where each floor has one or more
+rooms. They have asked you to build a system which reads plans for
+complexes (one or more buildings) and displays the total area and the area
+for each building. The grammar the use is described as follows, where
+non-terminals are capitalized and terminals are between quotes:
+</p><pre style="position: relative;">        Plans -&gt; (Floor)+ Complex
+        Floor -&gt; 'floor' Name 'has' ('rooms'|'room') RoomList
+        Complex -&gt; 'complex' (Building)+
+        Building -&gt; 'building' Name 'with' ('floors'|'floor') FloorList
+        FloorList -&gt; '{' FloorReference (',' FloorReference)* '}'
+        FloorReference -&gt; Name
+        RoomList -&gt; '[' Room (',' Room)* ']'
+        Room -&gt; Number 'by' Number
+        Name -&gt; [A-Z_]+
+        Number -&gt; [0-9]+
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+For example, a sample complex is
+<pre style="position: relative;">        floor DINING has rooms [80 by 40, 10 by 20, 10 by 20]
+        floor CUBICALS has rooms [20 by 20, 20 by 20, 20 by 20, 20 by 20]
+        floor GRAND_OFFICE has rooms [40 by 30, 20 by 20, 15 by 15, 30 by 30]
+        floor HALL has room [500 by 500]
+        complex
+          building A with floors {DINING, CUBICALS, CUBICALS}
+          building B with floors {DINING, GRAND_OFFICE}
+          building C with floor {DINING, HALL}
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+  Note the indentation and use of whitespace is immaterial. A simple way to
+  break this input into tokens is to use string substitution to put spaces
+  around commas, brackets, and braces (for example, convert "," to " ,
+  "), then use the Python string split operation to split on whitespace.
+  You could also use regular expressions with split operations to break the
+  input into tokens.
+<p></p>
+
+<p>
+You are to write a recursive descent parser for this language and augment
+it with code to compute (and display) the total area of the complex. Assume
+all units are measurements in feet. For example, the program would print
+</p><pre style="position: relative;">        Area for building A: 6800 square feet.
+        Area for building B: 6325 square feet.
+        Area for building C: 253600 square feet.
+        Total area: 266725 square feet.
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+If the input file has a syntax error, display a message indicating which
+token is missing; for example, if the input has four lines of floors (and
+no complex keyword), you would display
+<pre style="position: relative;">        <mark>Syntax error in plan: no more tokens, but expected complex</mark>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+and terminate without computing the area. Similarly for other syntax errors
+such as missing "with" after a building name, not having commas between
+floor names, etc. <mark>For example, missing a '{' after
+  a <code>floors</code> keyword (and having "CAFETERIA" in the same place)
+  would result in the message
+</mark>
+<pre style="position: relative;">        <mark>Syntax error in plan: Expected {, received CAFETERIA</mark>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+The other errors you must catch are references to unknown
+floor names. For example:
+<pre style="position: relative;">    floor X has rooms [5 by 5] complex building Y with floors {<b>BAD</b>}
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+In this case, the error message would be
+<pre style="position: relative;">  <mark>Reference to missing floor BAD</mark>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
+Again, followed by terminating the program without printing any information.
+<mark>In general, the specifics of the error messages are up to you other
+  than having to match the output in esubmit.
+</mark>
+<p></p>
+
+<h3>Additional Information</h3>
+<ul>
+  <li>You may work alone on this assignment or you may work with one other
+  person. If you do work with another person, you must tell your instructor
+  who that person will be within the first few days of the assignment so
+  groups can be formed on Canvas. If two people do work together, you are
+  expected to use pair programming as your basic implementation tool and
+  you must document how each person was involved.
+  </li>
+  <li>Your implementation must be in Python.
+  </li>
+  <li>Note all floors must be defined before any buildings. 
+  Floor names must be unique, and references to floors must be valid
+  names. It is <em>not</em> an error to name a floor that is not used in
+  any building.
+  </li>
+  <li>Building names are simply documentation; there are no checks needed
+  for those names.
+  </li>
+  <li><mark>Building and floor names will match the regular
+  expression <code>[a-zA-Z]*</code>.</mark>
+  </li><li>The 'floor' and 'room' keywords can be singular or plural; either
+  word can be used regardless of the actual number of floors or rooms.
+  </li>
+</ul>
+
+<h3>Hints</h3>
+<ul>
+  <li><mark>The simplest way to process the input is to just read it into
+  one large string and then break that string into a list of words. See the
+  above discussion about handling commas and other punctuation. A program
+  to read a file and create a list is in
+  the <a href="https://faculty-web.msoe.edu/hasker/cs3040/samples">sample code page</a> in the file 
+  <code><a href="https://faculty-web.msoe.edu/hasker/cs3040/samples/readinput.py">readinput.py</a></code>.
+    </mark>
+  </li>
+  <li><mark>Start by (say) writing code to read just one floor and print
+      its total area, then build out to the full parser.</mark>
+  </li>
+  <li><mark>There are two general ways to structure solutions. One is to
+      write value-returning functions that return an object representing
+      the floors and possibly the buildings in the compound, the other is
+      to track information about floors (and possibly buildings) in a
+      global variable. Either method is acceptable for this assignment.
+      </mark>
+  </li>
+  <li><mark>You can handle syntax errors by raising an exception, but then you
+      will need to catch that exception so your program just prints the
+      message without a stack trace. Alternatively, you can print the 
+      error and call <code>exit</code> to quit the program.
+    </mark>
+</li></ul>
+
+<h3>Submission</h3>
+
+<ul>
+  <li>Make sure all files have the correct author. There can be more than one
+      author if more than one person was primarily responsible for that file.
+  </li>
+  <li>Your solution must read from standard input and write to standard
+      output. You can implement reading from a file if convenient, but 
+      the file must be specified as a command line argument. Providing
+      no filenames should result in reading from standard input.
+  </li>
+  <li>Ensure your solution meets the coding standards in the course
+  syllabus. 
+  </li>
+  <li>Submit your code to <code>esubmit</code>. There is nothing to hand in
+  to Canvas.
+  </li>
+</ul>
+The test files are available
+as <code><a href="https://faculty-web.msoe.edu/hasker/cs3040/as/3/plans.zip">plans.zip</a></code>. 
+
+</div>
+
+
+</body></html>
